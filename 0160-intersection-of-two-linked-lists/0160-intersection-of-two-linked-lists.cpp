@@ -8,42 +8,22 @@
  */
 class Solution {
 public:
-    ListNode* findCollision(ListNode *head1,ListNode* head2, int d)
-    {
-        ListNode* temp = head1;
-        while(d--)
-            temp = temp -> next;
-        ListNode* t = head2;
-        while(temp != t)
-        {
-            temp = temp -> next;
-            t = t-> next;
-        }
-        if(temp == t) return temp;
-        return NULL;
-    }
+  
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        ListNode* temp = NULL;
-        int n1=0,n2=0;
-        temp = headA;
-        while(temp!=NULL)
+       if(headA == NULL || headB == NULL) return NULL;
+        ListNode* t1 = headA;
+        ListNode* t2 = headB;
+        
+        while(t1!=t2)
         {
-            n1++;
-            temp = temp -> next;
+            t1 = t1 -> next;
+            t2 = t2 -> next;
+            if(t1==t2) return t1;
+            
+            if(t1==NULL) t1=headB;
+            if(t2==NULL) t2=headA;
+            
         }
-        temp = headB;
-        while(temp!=NULL)
-        {
-            n2++;
-            temp = temp -> next;
-        }
-        if(n1>n2)
-        {
-            return findCollision(headA,headB,n1-n2);
-        }
-        else
-        {
-            return findCollision(headB,headA,n2-n1);
-        }
+        return t1;
     }
 };
